@@ -98,12 +98,12 @@ button:hover {
 .imagegallery{
 display:flex;
 justify-content: center;
+margin: 50px;
 }
 
 .box{
-width:22%;
+width:100%;
 text-align:center;
-padding:10px;
 margin:0px 5px;
 transition: transform .2s;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -118,17 +118,15 @@ align-items: center;
 
 .box h3{
 color:#2F94A8;
-padding: 1em 1.5em;
+padding: 1em;
 font-size: 1rem;
 text-align: center;
-font-size: larger;
 font-weight: bolder;
 }
 
 .box p{
-line-height:30px;
-padding: 1em 1.5em;
 font-size: 1rem;
+padding-top: 1em;
 text-align: center;
 }
 
