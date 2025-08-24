@@ -32,66 +32,55 @@
    </nav>
     </header>
 
-    <div class="slider">
-    <div class="slides">
-      <!-- Slides will be cloned dynamically -->
-      <img src="/images/background.jpg" alt="Slide 1">
-      <img src="/images/background1.jpg" alt="Slide 2">
-      <img src="/images/background2.jpg" alt="Slide 3">
-      <img src="/images/background3.jpg" alt="Slide 4">
-    </div>
+    <div class="slider-wrap">
+  <div class="slider">
+    <section class="slide" id="slide1">
+      <a class="arrow prev" href="#slide4">‹</a>
+      <img src="images/background.jpg" alt="Slide 1" />
+      <a class="arrow next" href="#slide2">›</a>
+    </section>
 
-    <button class="prev" onclick="moveSlide(-1)">❮</button>
-    <button class="next" onclick="moveSlide(1)">❯</button>
+    <section class="slide" id="slide2">
+      <a class="arrow prev" href="#slide1">‹</a>
+      <img src="images/background1.jpg" alt="Slide 2" />
+      <a class="arrow next" href="#slide3">›</a>
+    </section>
+
+    <section class="slide" id="slide3">
+      <a class="arrow prev" href="#slide2">‹</a>
+      <img src="images/background2.jpg" alt="Slide 3" />
+      <a class="arrow next" href="#slide4">›</a>
+    </section>
+
+    <section class="slide" id="slide4">
+      <a class="arrow prev" href="#slide3">‹</a>
+      <img src="images/background3.jpg" alt="Slide 4" />
+      <a class="arrow next" href="#slide1">›</a>
+    </section>
   </div>
 
-  <div class="dots"></div>
-    <script>
-  let currentIndex = 0;
-  const slides = document.querySelector(".slides");
-  const totalSlides = slides.children.length;
-  const dots = document.querySelectorAll(".dot");
+  <div class="dots">
+    <a href="#slide1" aria-label="Go to slide 1"></a>
+    <a href="#slide2" aria-label="Go to slide 2"></a>
+    <a href="#slide3" aria-label="Go to slide 3"></a>
+    <a href="#slide4" aria-label="Go to slide 4"></a>
+  </div>
+</div>
 
-  function updateSlider() {
-    slides.style.transition = "transform 0.5s ease-in-out";
-    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+<script>
+  const slider = document.querySelector(".slider");
+  let index = 0;
+  const slides = document.querySelectorAll(".slide");
 
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === currentIndex);
-    });
+  function autoSlide() {
+    index = (index + 1) % slides.length;
+    slides[index].scrollIntoView({ behavior: "smooth" });
   }
 
-  function moveSlide(step) {
-    currentIndex += step;
-
-    // If going forward past last slide
-    if (currentIndex >= totalSlides) {
-      currentIndex = 0;
-    }
-
-    // If going backward past first slide
-    if (currentIndex < 0) {
-      currentIndex = totalSlides - 1;
-    }
-
-    updateSlider();
-  }
-
-  function goToSlide(index) {
-    currentIndex = index;
-    updateSlider();
-  }
-
-  // Auto-slide every 4 seconds
-  // setInterval(() => {
-  //   moveSlide(1);
-  // }, 4000);
-
-  // Initialize
-  updateSlider();
+  setInterval(autoSlide, 4000); // change slide every 4 seconds
 </script>
 
-     <h2 style="text-align: center; text-decoration: underline;" >MEN-WEAR </h2>
+<h2 style="text-align: center; text-decoration: underline;" >MEN-WEAR </h2>
 
      <section class="imagegallery">
     <div class="box">

@@ -96,9 +96,11 @@ button:hover {
 }
 
 .imagegallery{
-display:flex;
 justify-content: center;
 margin: 50px;
+display: grid;
+gap: 1rem;
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .box{
@@ -251,62 +253,114 @@ font-size: 14px;
 color: #bbb;
 }
 
-.slider {
-position: relative;
-overflow: hidden;
-box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+.slider-wrap {
+  width: 100%;
+  margin: 0 auto;
 }
 
-.slides {
-display: flex;
-transition: transform 0.5s ease-in-out;
+.slide {
+  width: 100%;
+  max-height: 300px;   /* adjust to taste (e.g. 350px, 400px, etc.) */
+  overflow: contain;    /* crops anything taller than this */
 }
 
-.slides img {
-width: 100%;
-height: 500px;
+.slide img {
+  width: 100%;         /* full width */
+  height: 100%;        /* fill the slide height */
+  object-fit: cover;   /* crops nicely instead of stretching */
+  border-radius: 0;
 }
 
-    /* Navigation buttons */
-.prev, .next {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-background: rgba(0,0,0,0.5);
-color: #fff;
-border: none;
-padding: 12px;
-cursor: pointer;
-border-radius: 50%;
-font-size: 18px;
-}
-.prev { left: 15px; }
-.next { right: 15px; }
+  /* Slider track */
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    border-radius: var(--slider-radius);
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 6px 24px rgba(0,0,0,.15);
+  }
 
-.prev:hover, .next:hover {
-background: rgba(0,0,0,0.8);
-}
+  /* Hide scrollbars (optional) */
+  .slider::-webkit-scrollbar { display: none; }
+  .slider { scrollbar-width: none; }
 
-    /* Dots */
-.dots {
-text-align: center;
-margin-top: 15px;
-}
+  /* Each slide */
+  .slide {
+    position: relative;
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    aspect-ratio: 16 / 9; /* keep it responsive; change to taste */
+    display: grid;
+    place-items: center;
+    background: #eee;
+  }
 
-.dot {
-display: inline-block;
-height: 12px;
-width: 12px;
-margin: 0 6px;
-background: #bbb;
-border-radius: 50%;
-cursor: pointer;
-transition: background 0.3s;
-}
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--slider-radius);
+  }
 
-.dot.active {
-background: #1da1f2;
-}
+  /* Dots */
+  .dots {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .dots a {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #bbb;
+    display: inline-block;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .dots a:active { transform: scale(.9); }
+
+  /* Optional: highlight the active dot using :target (fallback is neutral) */
+  :target ~ .dots a[href="#slide1"],
+  :target ~ .dots a[href="#slide2"],
+  :target ~ .dots a[href="#slide3"],
+  :target ~ .dots a[href="#slide4"] { background: #bbb; } /* reset */
+
+  #slide1:target ~ .dots a[href="#slide1"],
+  #slide2:target ~ .dots a[href="#slide2"],
+  #slide3:target ~ .dots a[href="#slide3"],
+  #slide4:target ~ .dots a[href="#slide4"] { background: #333; }
+
+  /* Small improvement: center the track on load if no hash */
+  @media (prefers-reduced-motion: no-preference) {
+    .slider { scroll-behavior: smooth; }
+  }
+
+  /* Optional: arrow buttons (pure anchor links) */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 2;
+    width: 42px; height: 42px;
+    display: grid; place-items: center;
+    text-decoration: none;
+    font: 700 22px/1 system-ui, sans-serif;
+    background: rgba(0,0,0,.45);
+    color: #fff;
+    border-radius: 999px;
+    padding-bottom: 2px;
+    backdrop-filter: blur(4px);
+  }
+  .arrow:hover { background: rgba(0,0,0,.6); }
+  .arrow.prev { left: 10px; }
+  .arrow.next { right: 10px; }
+
+  /* Ensure arrows sit above slides */
+  .slider-wrap {
+     position: relative; 
+    }
 
 .about-section {
 max-width: 1100px;
