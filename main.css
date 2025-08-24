@@ -91,6 +91,12 @@ button {
     text-align: center;
 }
 
+html, body {
+  margin: 0;        
+  padding: 0; 
+  overflow-x: hidden;  
+}
+
 button:hover {
     background-color: #0056b3;
 }
@@ -254,24 +260,25 @@ color: #bbb;
 }
 
 .slider-wrap {
+  position: relative;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;     
 }
 
 .slide {
   width: 100%;
-  max-height: 300px;   /* adjust to taste (e.g. 350px, 400px, etc.) */
-  overflow: contain;    /* crops anything taller than this */
+  max-height: 500px;   
+  overflow: contain;   
 }
 
 .slide img {
-  width: 100%;         /* full width */
-  height: 100%;        /* fill the slide height */
-  object-fit: cover;   /* crops nicely instead of stretching */
+  width: 100%;       
+  height: 100%;      
+  object-fit: cover;  
   border-radius: 0;
 }
 
-  /* Slider track */
   .slider {
     display: flex;
     overflow-x: auto;
@@ -282,16 +289,14 @@ color: #bbb;
     box-shadow: 0 6px 24px rgba(0,0,0,.15);
   }
 
-  /* Hide scrollbars (optional) */
   .slider::-webkit-scrollbar { display: none; }
   .slider { scrollbar-width: none; }
 
-  /* Each slide */
   .slide {
     position: relative;
     flex: 0 0 100%;
     scroll-snap-align: center;
-    aspect-ratio: 16 / 9; /* keep it responsive; change to taste */
+    aspect-ratio: 16 / 9;
     display: grid;
     place-items: center;
     background: #eee;
@@ -305,13 +310,13 @@ color: #bbb;
     border-radius: var(--slider-radius);
   }
 
-  /* Dots */
   .dots {
     display: flex;
     gap: 10px;
     justify-content: center;
     margin-top: 12px;
   }
+
   .dots a {
     width: 10px; height: 10px;
     border-radius: 50%;
@@ -319,48 +324,76 @@ color: #bbb;
     display: inline-block;
     transition: transform .2s ease, background .2s ease;
   }
+
   .dots a:active { transform: scale(.9); }
 
-  /* Optional: highlight the active dot using :target (fallback is neutral) */
   :target ~ .dots a[href="#slide1"],
   :target ~ .dots a[href="#slide2"],
   :target ~ .dots a[href="#slide3"],
-  :target ~ .dots a[href="#slide4"] { background: #bbb; } /* reset */
+  :target ~ .dots a[href="#slide4"] { background: #bbb; }
 
   #slide1:target ~ .dots a[href="#slide1"],
   #slide2:target ~ .dots a[href="#slide2"],
   #slide3:target ~ .dots a[href="#slide3"],
   #slide4:target ~ .dots a[href="#slide4"] { background: #333; }
 
-  /* Small improvement: center the track on load if no hash */
+
   @media (prefers-reduced-motion: no-preference) {
     .slider { scroll-behavior: smooth; }
   }
 
-  /* Optional: arrow buttons (pure anchor links) */
   .arrow {
-    position: absolute;
-    top: 50%;
-    translate: 0 -50%;
-    z-index: 2;
-    width: 42px; height: 42px;
-    display: grid; place-items: center;
-    text-decoration: none;
-    font: 700 22px/1 system-ui, sans-serif;
-    background: rgba(0,0,0,.45);
-    color: #fff;
-    border-radius: 999px;
-    padding-bottom: 2px;
-    backdrop-filter: blur(4px);
-  }
-  .arrow:hover { background: rgba(0,0,0,.6); }
-  .arrow.prev { left: 10px; }
-  .arrow.next { right: 10px; }
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
 
-  /* Ensure arrows sit above slides */
-  .slider-wrap {
-     position: relative; 
-    }
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.arrow:hover { background: rgba(0,0,0,0.7); }
+
+.arrow.prev { left: max(10px, env(safe-area-inset-left)); }
+.arrow.next { right: max(10px, env(safe-area-inset-right)); }
+
+@media (max-width: 480px) {
+  .arrow { width: 40px; height: 40px; font-size: 20px; }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;  
+  margin: 12px 0;
+}
+
+.dot {
+  all: unset;              
+  width: 8px;           
+  height: 8px;
+  border-radius: 50%;
+  background: #bbb;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #333;
+}
 
 .about-section {
 max-width: 1100px;

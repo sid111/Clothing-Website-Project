@@ -34,50 +34,59 @@
 
     <div class="slider-wrap">
   <div class="slider">
-    <section class="slide" id="slide1">
-      <a class="arrow prev" href="#slide4">‹</a>
-      <img src="images/background.jpg" alt="Slide 1" />
-      <a class="arrow next" href="#slide2">›</a>
-    </section>
-
-    <section class="slide" id="slide2">
-      <a class="arrow prev" href="#slide1">‹</a>
-      <img src="images/background1.jpg" alt="Slide 2" />
-      <a class="arrow next" href="#slide3">›</a>
-    </section>
-
-    <section class="slide" id="slide3">
-      <a class="arrow prev" href="#slide2">‹</a>
-      <img src="images/background2.jpg" alt="Slide 3" />
-      <a class="arrow next" href="#slide4">›</a>
-    </section>
-
-    <section class="slide" id="slide4">
-      <a class="arrow prev" href="#slide3">‹</a>
-      <img src="images/background3.jpg" alt="Slide 4" />
-      <a class="arrow next" href="#slide1">›</a>
-    </section>
+    <section class="slide"><img src="images/background.jpg" alt=""></section>
+    <section class="slide"><img src="images/background1.jpg" alt=""></section>
+    <section class="slide"><img src="images/background2.jpg" alt=""></section>
+    <section class="slide"><img src="images/background3.jpg" alt=""></section>
   </div>
 
-  <div class="dots">
-    <a href="#slide1" aria-label="Go to slide 1"></a>
-    <a href="#slide2" aria-label="Go to slide 2"></a>
-    <a href="#slide3" aria-label="Go to slide 3"></a>
-    <a href="#slide4" aria-label="Go to slide 4"></a>
-  </div>
+  <button class="arrow prev">‹</button>
+  <button class="arrow next">›</button>
+
+  <div class="dots"></div>
+
 </div>
 
 <script>
   const slider = document.querySelector(".slider");
-  let index = 0;
-  const slides = document.querySelectorAll(".slide");
+    const slides = document.querySelectorAll(".slide");
+    const dotsContainer = document.querySelector(".dots");
+    let index = 0;
 
-  function autoSlide() {
-    index = (index + 1) % slides.length;
-    slides[index].scrollIntoView({ behavior: "smooth" });
-  }
+    slides.forEach((_, i) => {
+      const dot = document.createElement("button");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll(".dot");
 
-  setInterval(autoSlide, 4000); // change slide every 4 seconds
+    function goToSlide(i) {
+      index = i;
+      slider.scrollTo({
+        left: slides[index].offsetLeft,
+        behavior: "smooth"
+      });
+      updateDots();
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+    }
+
+    document.querySelector(".arrow.next").onclick = () => {
+      goToSlide((index + 1) % slides.length);
+    };
+    document.querySelector(".arrow.prev").onclick = () => {
+      goToSlide((index - 1 + slides.length) % slides.length);
+    };
+
+    setInterval(() => {
+      goToSlide((index + 1) % slides.length);
+    }, 4000);
 </script>
 
 <h2 style="text-align: center; text-decoration: underline;" >MEN-WEAR </h2>
