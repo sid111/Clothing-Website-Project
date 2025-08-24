@@ -123,6 +123,7 @@ line-height:30px;
 
 .box img{
 height: 300px;
+width: 100%;
 }
 
 .box:hover{
@@ -187,8 +188,8 @@ background: #0d8ddb;
 }
 
 .features{
-    text-align: center;
-    align-items: justify;
+text-align: center;
+align-items: justify;
 }
 footer {
 background: #222;
