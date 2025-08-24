@@ -122,7 +122,8 @@ line-height:30px;
 }
 
 .box img{
-height: 300px
+height: 300px;
+width: 50%;
 }
 
 .box:hover{
