@@ -19,6 +19,7 @@ font-family:Courier new;
 nav{
 padding:10px 0px;
 display:flex;
+flex-direction: column;
 justify-content:center;
 background-color:#666666;
 }
