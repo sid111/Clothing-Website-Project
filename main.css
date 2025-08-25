@@ -16,46 +16,43 @@ font-family:Courier new;
     height: 200px;
 }
 
-nav{
-padding:10px 0px;
-display:flex;
-flex-direction: column;
-justify-content:center;
-align-items: center;
-background-color:#666666;
+nav {
+  background: #222; /* dark background */
+  padding: 15px 0;
+  text-align: center;
 }
 
-.menubuttons{
-text-align:center;
-display: flex;
-justify-content:center;
-align-items:center;
-
+.menubuttons ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;           
+  justify-content: center;   
+  gap: 12px;                 
 }
 
-.menubuttons ul li{
-list-style:none;
-display:inline-block;
-padding:5px 5px;
+.menubuttons ul li {
+  display: inline-block;
 }
 
-.homepage{
-background-color:lightblue;
-border-radius:25px;
-padding:5px 5px;
-}
-
-.menubuttons ul li a{
-text-decoration:none;
-font-size:18px;
-color:white;
-border-radius:25px;
-padding:6px 12px;
-}
-
-.menubuttons a:hover {
-  background-color: lightblue;
+.menubuttons ul li a {
+  display: inline-block;
+  padding: 10px 22px;
+  background: #4a6b5c;       /* ✅ dull green */
+  /* background: #4a5e6b;    <-- uncomment this line for dull blue instead */
   color: white;
+  text-decoration: none;
+  border-radius: 30px;       
+  transition: all 0.3s ease;
+  font-weight: normal;       /* ✅ no bold */
+  font-size: 15px;
+}
+
+.menubuttons ul li a:hover {
+  background: #3c564a;       /* slightly darker on hover (green version) */
+  /* background: #3b4d59;    <-- uncomment if using blue */
+  transform: scale(1.05);    
 }
 
 main {
@@ -440,4 +437,77 @@ background: #f7f7f7;
 padding: 20px;
 border-left: 4px solid #b48a5a;
 border-radius: 8px;
+}
+
+/* Ensure cart page ignores the old `main { display:flex; height:78vh; }` */
+main.cart-main {
+  display: block !important;
+  height: auto !important;
+  min-height: auto !important;
+  padding-top: 28px;
+  padding-bottom: 36px;
+  background-color: #f4f4f4;
+  box-sizing: border-box;
+  margin-top: 0; /* header is in normal flow, so no huge offset needed */
+}
+
+/* Layout container tweaks (centers inside page) */
+main.cart-main .container {
+  max-width: 1200px;
+}
+
+/* Product card look */
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+/* Image sizing */
+.cart-item-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Summary card */
+.cart-summary {
+  margin-top: 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Give some breathing room above footer */
+footer {
+  margin-top: 32px;
+}
+
+/* Responsive behavior: stack summary under products on small screens */
+@media (max-width: 991.98px) {
+  .product-card { flex-direction: column; text-align: left; }
+  .product-img { margin-bottom: 12px; }
+  .cart-summary { margin-top: 18px; }
+}
+
+/* Slight spacing fixes for very small devices */
+@media (max-width: 575.98px) {
+  .product-card { padding: 12px; }
+  .product-info h5 { font-size: 1rem; }
+  .product-info p { font-size: 0.95rem; }
+}
+
+.custom-btn {
+  background-color: #1da1f2;   /* Blue background */
+  color: white !important;     /* White text */
+  border-radius: 30px;         /* Rounded pill shape */
+  transition: all 0.3s ease;   /* Smooth hover effect */
+}
+
+.custom-btn:hover {
+  background-color: #0d8ddb;   /* Darker blue on hover */
+  color: #fff !important;
+  transform: scale(1.05);      /* Slight pop effect */
 }
