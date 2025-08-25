@@ -26,6 +26,8 @@ background-color:#666666;
 
 .menubuttons{
 text-align:center;
+display: flex;
+
 }
 
 .menubuttons ul li{
